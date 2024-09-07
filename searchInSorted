@@ -1,0 +1,15 @@
+
+class Solution {
+    static int searchInSorted(int arr[], int N, int K) {
+
+        // Your code here
+        int n= arr.length;
+        int expected=-1;
+        for(int i =0; i<N;i++){
+            if(arr[i]==K){
+                expected =1;
+            }
+        }
+        return expected;
+    }
+}
