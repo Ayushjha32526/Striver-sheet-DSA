@@ -1,0 +1,18 @@
+import java.util.Arrays;
+
+class Solution {
+    public int missingNumber(int[] nums) {
+        // Sort the array
+        Arrays.sort(nums);
+        
+        // Loop through the sorted array to find the missing number
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != i) {
+                return i;  // Missing number found
+            }
+        }
+        
+        // If all numbers are in the correct order, return nums.length (the missing number is n)
+        return nums.length;
+    }
+}
