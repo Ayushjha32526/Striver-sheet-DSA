@@ -1,0 +1,22 @@
+class Solution {
+    public int maxProfit(int[] arr) {
+        int n = arr.length;
+        if (n == 0) return 0; // No profit can be made with no prices
+        
+        int minPrice = arr[0]; // Initialize with a very high value
+        int maxProfit = 0;
+        
+        for (int i = 0; i < n; i++) {
+            if (arr[i] < minPrice) {
+                minPrice = arr[i]; // Update the minimum price
+            } 
+            // Calculate profit if selling at arr[i] with the current minimum price
+            int profit = arr[i] - minPrice;
+            if (profit > maxProfit) {
+                maxProfit = profit; // Update the maximum profit
+            }
+        }
+        
+        return maxProfit;
+    }
+}
