@@ -1,0 +1,25 @@
+import java.util.Arrays;
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        Arrays.sort(nums); // Sort the array
+        int max = 0;
+        int majorityElement = nums[0]; // Initialize majority element as the first element
+        for (int i = 0; i < nums.length; i++) {
+            int count = 1;
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] == nums[j]) {
+                    count++;
+                } else {
+                    break; // Since the array is sorted, we can stop when the current number changes
+                }
+            }
+            if (count > max) {
+                max = count;
+                majorityElement = nums[i]; // Update majority element
+            }
+            i += count - 1; // Skip over the elements we just counted
+        }
+        return majorityElement; // Return the majority element
+    }
+}
