@@ -1,0 +1,16 @@
+class Solution {
+    // Function to find pair with maximum sum
+    public int pairWithMaxSum(List<Integer> arr) {
+        int max = Integer.MIN_VALUE; // Initialize to a very low value
+        int sum;
+
+        for (int i = 0; i < arr.size() - 1; i++) { // Loop till second last element
+            sum = arr.get(i) + arr.get(i + 1); // Sum of current and next element
+            if (sum > max) {
+                max = sum; // Update max if the sum is greater
+            }
+        }
+
+        return max; // Return the maximum sum
+    }
+}
