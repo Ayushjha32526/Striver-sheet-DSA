@@ -1,0 +1,23 @@
+class Solution {
+
+    // Function to find floor of x
+    // arr: input array
+    // n is the size of array
+    static int findFloor(long arr[], int n, long x) {
+        int low = 0;
+        int high = n - 1;
+        int ans = -1; // Initialize answer to -1, to handle cases where no floor exists
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (arr[mid] <= x) {
+                ans = mid; // Found a possible floor, store its index
+                low = mid + 1; // Try to find a larger floor on the right side
+            } else {
+                high = mid - 1; // Reduce the search space to the left
+            }
+        }
+        return ans; // Return the index of the floor (or -1 if not found)
+    }
+}
