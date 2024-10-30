@@ -1,0 +1,15 @@
+class Solution {
+    // Function to count nodes of a linked list.
+    public int getCount(Node head) {
+        int count = 0;  // Initialize count
+        Node temp = head;
+
+        // Traverse the linked list
+        while (temp != null) {
+          // Print data in the current node
+            temp = temp.next;  // Move to the next node
+            count++;  // Increment count for each node
+        }
+        return count;  // Return the final count
+    }
+}
