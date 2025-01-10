@@ -1,0 +1,42 @@
+public class Solution
+{
+public boolean checkValidString(String s)
+    {
+        // Initialize two stacks: one for storing indices of open brackets and the other for storing indices of asterisks
+        Stack<Integer> openStack = new Stack<>();
+        Stack<Integer> asteriskStack = new Stack<>();
+
+        // Iterate through the string
+        for (int i = 0; i < s.length(); i++)
+        {
+            if (s.charAt(i) == '(') // If the current character is an open bracket, push its index onto the openBracket stack
+                openStack.push(i);
+            else if (s.charAt(i) == ')')
+            {                             // If the current character is a close bracket
+                if (!openStack.isEmpty()) // If there's a corresponding open bracket in the openBracket stack, pop it
+                    openStack.pop();
+                else if (!asteriskStack.isEmpty()) // If there's an asterisk in the asterisk stack, treat it as a replacement for the close bracket
+                    asteriskStack.pop();
+                else // If no open bracket or asterisk is available to match the current close bracket, return false
+                    return false;
+            }
+            else // If the current character is an asterisk, push its index onto the asterisk stack
+                asteriskStack.push(i);
+        }
+
+        // Check if there are any unmatched open brackets and asterisks
+        while (!openStack.isEmpty() && !asteriskStack.isEmpty())
+        {
+            // If an open bracket occurs after an asterisk, return false
+            // As this condition will never be able to generate a valid parenthesis sequence
+            if (openStack.peek() > asteriskStack.peek())
+                return false;
+            // Pop the top elements from both stacks
+            openStack.pop();
+            asteriskStack.pop();
+        }
+
+        // If all open brackets can be matched with either a close bracket or an asterisk, return true
+        return openStack.isEmpty();
+    }
+}
