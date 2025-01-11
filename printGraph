@@ -1,0 +1,17 @@
+class Solution {
+    public List<List<Integer>> printGraph(int V, int edges[][]) {
+        // Initialize adjacency list as an array of ArrayLists
+        List<List<Integer>> list = new ArrayList<>();
+        for (int i = 0; i < V; i++) {
+            list.add(new ArrayList<>());
+        }
+
+        // Populate the adjacency list
+        for (int[] edge : edges) {
+            list.get(edge[0]).add(edge[1]);
+            list.get(edge[1]).add(edge[0]); // For undirected graph
+        }
+
+        return list;
+    }
+}
