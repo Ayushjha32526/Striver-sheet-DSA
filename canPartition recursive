@@ -1,0 +1,28 @@
+class Solution {
+    public boolean canPartition(int[] nums) {
+        int n = nums.length;
+        int sum=0;
+        for(int i=0;i<n;i++){
+            sum = sum+ nums[i];
+        }
+        if(sum%2!=0){
+            return false;
+        }
+        else{
+         return subset(nums,sum/2,n);
+        }
+    }
+        public boolean subset(int arr[], int sums, int n){
+            if(sums==0){
+                return true;
+            }
+            if(n==0){
+                return false;
+            }
+            if(arr[n-1]>sums){
+                return subset(arr,sums,n-1);
+            }else{
+                return subset(arr,sums-arr[n-1],n-1)|| subset(arr,sums,n-1);
+            }
+        }
+    }
