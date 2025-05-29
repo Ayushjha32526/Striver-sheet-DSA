@@ -1,0 +1,22 @@
+class Solution {
+    public Node insertAtEnd(Node head, int x) {
+        // Create a new node with the given data
+        Node newNode = new Node(x);
+        
+        // If the list is empty, make the new node the head
+        if (head == null) {
+            return newNode;
+        }
+        
+        // Traverse to the last node
+        Node temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+        
+        // Link the last node to the new node
+        temp.next = newNode;
+        
+        return head;
+    }
+}
