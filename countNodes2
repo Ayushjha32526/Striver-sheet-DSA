@@ -1,0 +1,24 @@
+class Solution {
+    public int countNodes(TreeNode root) {
+        if (root == null) return 0;
+
+        Queue<TreeNode> que = new LinkedList<>();
+        que.add(root);
+
+        int count = 0;  // Start from 0, increase as you visit nodes
+
+        while (!que.isEmpty()) {
+            TreeNode node = que.poll();
+            count++;  // Count the node you just visited
+
+            if (node.left != null) {
+                que.add(node.left);
+            }
+            if (node.right != null) {
+                que.add(node.right);
+            }
+        }
+
+        return count;
+    }
+}
