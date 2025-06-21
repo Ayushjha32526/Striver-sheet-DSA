@@ -1,0 +1,55 @@
+class Solution {
+    public static boolean checkSubsequenceSum(int N, int[] arr, int K) {
+        int index = N - 1;
+        int dp[][] = new int[N][K + 1]; // ✅ Correct size N x (K+1), NOT index x (K+1)
+        // 0: not seen, 1: true, 2: false
+        return cs(N, arr, K, index, dp);
+    }
+
+    public static boolean cs(int N, int[] arr, int K, int index, int dp[][]) {
+        // Base case: Sum becomes 0
+        if (K == 0) {
+            dp[index][K] = 1;
+            return true;
+        }
+
+        // Base case: Only first element to check
+        if (index == 0) {
+            if (K == arr[0]) {
+                dp[index][K] = 1;
+                return true;
+            } else {
+                dp[index][K] = 2;
+                return false;
+            }
+        }
+
+        // Already computed
+        if (dp[index][K] != 0) {
+            return dp[index][K] == 1; // 1 = true, 2 = false
+        }
+
+        // Pick the current element if possible
+        boolean pick = false;
+        if (K - arr[index] >= 0) {
+            pick = cs(N, arr, K - arr[index], index - 1, dp);
+        }
+
+        if (pick) {
+            dp[index][K] = 1;
+            return true;
+        }
+
+        // Not pick the current element
+        boolean nopick = cs(N, arr, K, index - 1, dp);
+
+        // Store the result
+        if (nopick) {
+            dp[index][K] = 1;
+            return true;
+        } else {
+            dp[index][K] = 2;
+            return false;
+        }
+    }
+}
