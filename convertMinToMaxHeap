@@ -1,0 +1,36 @@
+import java.util.Arrays;
+
+class Solution {
+    static void convertMinToMaxHeap(int N, int arr[]) {
+        for (int i = (N / 2) - 1; i >= 0; i--) {
+            heapify(arr, i, N);
+        }
+        System.out.println(Arrays.toString(arr)); // Correct way to print array
+    }
+
+    static void swap(int arr[], int start, int end) {
+        int temp = arr[start];
+        arr[start] = arr[end];
+        arr[end] = temp;
+    }
+
+    static void heapify(int[] arr, int i, int N) {
+        int parent = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        int largest = parent;
+        if (left < N && arr[left] > arr[largest]) {
+            largest = left;
+        }
+
+        if (right < N && arr[right] > arr[largest]) {
+            largest = right;
+        }
+
+        if (largest != parent) {
+            swap(arr, parent, largest);
+            heapify(arr, largest, N); // Fix subtree
+        }
+    }
+}
