@@ -1,0 +1,36 @@
+class Solution {
+    static class Pair {
+        int val;
+        int freq;
+
+        Pair(int val, int freq) {
+            this.val = val;
+            this.freq = freq;
+        }
+    }
+    public int[] topKFrequent(int[] nums, int k) {
+         HashMap<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        // Step 2: Min Heap of size k using Pair
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> a.freq - b.freq);
+
+        for (Map.Entry<Integer, Integer> entry : freqMap.entrySet()) {
+            pq.add(new Pair(entry.getKey(), entry.getValue()));
+            if (pq.size() > k) {
+                pq.poll(); // Remove least frequent
+            }
+        }
+
+        // Step 3: Extract values from heap
+        int[] res = new int[k];
+        int i = 0;
+        while (!pq.isEmpty()) {
+            res[i++] = pq.poll().val;
+        }
+
+        return res;
+    }
+}
