@@ -1,0 +1,64 @@
+import java.util.*;
+
+class Solution {
+    class Pair {
+        int x, y;
+        Pair(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    public int orangesRotting(int[][] grid) {
+        int m = grid.length;
+        int n = grid[0].length;
+
+        Queue<Pair> queue = new LinkedList<>();
+        int fresh = 0;
+
+        // 1. Add all initially rotten oranges to queue, and count fresh oranges
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 2) {
+                    queue.add(new Pair(i, j));
+                } else if (grid[i][j] == 1) {
+                    fresh++;
+                }
+            }
+        }
+
+        if (fresh == 0) return 0;
+
+        int[][] dir = {
+            {-1, 0}, {1, 0}, {0, -1}, {0, 1}
+        };
+
+        int minutes = 0;
+
+        // 2. BFS traversal
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            boolean anyRotten = false;
+
+            for (int i = 0; i < size; i++) {
+                Pair pair = queue.poll();
+
+                for (int[] arr : dir) {
+                    int row = pair.x + arr[0];
+                    int col = pair.y + arr[1];
+
+                    if (row < 0 || col < 0 || row >= m || col >= n || grid[row][col] != 1) continue;
+
+                    grid[row][col] = 2; // Make fresh orange rotten
+                    fresh--;
+                    queue.add(new Pair(row, col));
+                    anyRotten = true;
+                }
+            }
+
+            if (anyRotten) minutes++;
+        }
+
+        return fresh == 0 ? minutes : -1;
+    }
+}
