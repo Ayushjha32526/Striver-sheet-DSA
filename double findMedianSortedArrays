@@ -1,0 +1,33 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Collections; // Needed for Collections.sort if using List directly
+
+class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        // Use a List to merge arrays, as it preserves duplicates
+        List<Integer> mergedList = new ArrayList<>(); 
+        
+        for(int num : nums1){ // Enhanced for loop for clarity
+            mergedList.add(num);
+        }
+        for(int num : nums2){ // Enhanced for loop for clarity
+            mergedList.add(num);
+        }
+
+        // Sort the merged list
+        Collections.sort(mergedList);
+
+        int totalLength = mergedList.size();
+
+        if (totalLength % 2 != 0) {
+            // Odd length: median is the middle element
+            return (double) mergedList.get(totalLength / 2);
+        } else {
+            // Even length: median is the average of the two middle elements
+            int mid1 = mergedList.get(totalLength / 2 - 1);
+            int mid2 = mergedList.get(totalLength / 2);
+            return (double) (mid1 + mid2) / 2.0;
+        }
+    }
+}
